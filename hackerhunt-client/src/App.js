@@ -36,7 +36,11 @@ class App extends Component {
   };
 
   onSearch = event => {
-    this.setState({ searchText: event.target.value });
+    const value = event.target.value;
+    const filteredPosts = this.state.posts.filter(post =>
+      post.title.toLowerCase().includes(value.toLowerCase())
+    );
+    this.setState({ posts: filteredPosts, searchText: value });
   };
 
   render() {
