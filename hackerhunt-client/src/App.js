@@ -42,53 +42,73 @@ class App extends Component {
   render() {
     return (
       <div>
-        <header
+        <div
           style={{
-            display: "flex"
+            display: "block",
+            width: "100%",
+            maxWidth: "1080px",
+            margin: "0 auto",
+            boxSizing: "border-box"
           }}
         >
-          <form
+          <header
             style={{
-              width: "100%",
-              position: "relative"
+              display: "flex",
+              padding: "36px 32px"
             }}
           >
-            <fieldset
+            <form
               style={{
-                border: "none",
                 display: "block",
-                margin: "auto",
-                width: "50%"
+                width: "100%",
+                position: "relative",
+                margin: 0,
+                padding: 0,
+                border: 0,
+                fontSize: "100%",
+                font: "inherit",
+                verticalAlign: "baseline"
               }}
             >
-              <input
+              <fieldset
                 style={{
-                  width: "100%",
-                  maxWidth: "calc(70% - 80px)"
+                  border: "none",
+                  display: "block",
+                  margin: "auto",
+                  width: "53%"
                 }}
-                onChange={this.onSearch}
-                value={this.searchText}
-              />
-            </fieldset>
-          </form>
-        </header>
-        <div style={{ margin: "auto", width: "50%" }}>
-          {this.state.posts.map(post => (
-            <article key={post.id}>
-              <Title href={post.link} target="_blank">
-                {post.title}
-              </Title>
-              <Description>{post.desc}</Description>
-              <Author>{post.author}</Author>
-              <Votes>{post.votes}</Votes>
-              <HourDate>
-                {Math.round((Date.now() - post.date * 1000) / 1000 / 60 / 60)}{" "}
-                hours ago.
-              </HourDate>
-              <Comments>{post.comments}</Comments>
-              <Tags>{post.tags}</Tags>
-            </article>
-          ))}
+              >
+                <input
+                  style={{
+                    width: "100%",
+                    maxWidth: "calc(70% - 80px)",
+                    height: "32px",
+                    lineHeight: "32px"
+                  }}
+                  onChange={this.onSearch}
+                  value={this.searchText}
+                />
+              </fieldset>
+            </form>
+          </header>
+          <div style={{ margin: "auto", width: "50%" }}>
+            {this.state.posts.map(post => (
+              <article key={post.id}>
+                <Title href={post.link} target="_blank">
+                  {post.title}
+                </Title>
+                <Description>{post.desc}</Description>
+                <Author>{post.author}</Author>
+                <Votes>{post.votes}</Votes>
+                <HourDate>
+                  {Math.round((Date.now() - post.date * 1000) / 1000 / 60 / 60)}{" "}
+                  hours ago.
+                </HourDate>
+                <Comments>{post.comments}</Comments>
+                <Tags>{post.tags}</Tags>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     );
