@@ -36,14 +36,14 @@ class App extends Component {
   };
 
   onSearch = event => {
-    const value = event.target.value;
-    const filteredPosts = this.state.posts.filter(post =>
-      post.title.toLowerCase().includes(value.toLowerCase())
-    );
-    this.setState({ posts: filteredPosts, searchText: value });
+    this.setState({ searchText: event.target.value });
   };
 
-  render() {
+  render(event) {
+    const filteredPosts = this.state.posts.filter(post =>
+      post.title.toLowerCase().includes(this.state.searchText.toLowerCase())
+    );
+    const tabPosts = filteredPosts.map(post => post);
     return (
       <div>
         <div
@@ -96,7 +96,7 @@ class App extends Component {
             </form>
           </header>
           <div style={{ margin: "auto", width: "50%" }}>
-            {this.state.posts.map(post => (
+            {tabPosts.map(post => (
               <article key={post.id}>
                 <Title href={post.link} target="_blank">
                   {post.title}
