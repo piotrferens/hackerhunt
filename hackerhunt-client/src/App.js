@@ -42,23 +42,54 @@ class App extends Component {
   render() {
     return (
       <div>
-        <input onChange={this.onSearch} value={this.searchText} />
-        {this.state.posts.map(post => (
-          <div key={post.id}>
-            <Title href={post.link} target="_blank">
-              {post.title}
-            </Title>
-            <Description>{post.desc}</Description>
-            <Author>{post.author}</Author>
-            <Votes>{post.votes}</Votes>
-            <HourDate>
-              {Math.round((Date.now() - post.date * 1000) / 1000 / 60 / 60)}{" "}
-              hours ago.
-            </HourDate>
-            <Comments>{post.comments}</Comments>
-            <Tags>{post.tags}</Tags>
-          </div>
-        ))}
+        <header
+          style={{
+            display: "flex"
+          }}
+        >
+          <form
+            style={{
+              width: "100%",
+              position: "relative"
+            }}
+          >
+            <fieldset
+              style={{
+                border: "none",
+                display: "block",
+                margin: "auto",
+                width: "50%"
+              }}
+            >
+              <input
+                style={{
+                  width: "100%",
+                  maxWidth: "calc(70% - 80px)"
+                }}
+                onChange={this.onSearch}
+                value={this.searchText}
+              />
+            </fieldset>
+          </form>
+        </header>
+        <div style={{ margin: "auto", width: "50%" }}>
+          {this.state.posts.map(post => (
+            <article key={post.id}>
+              <Title href={post.link} target="_blank">
+                {post.title}
+              </Title>
+              <Description>{post.desc}</Description>
+              <Author>{post.author}</Author>
+              <Votes>{post.votes}</Votes>
+              <HourDate>
+                {Math.round((Date.now() - post.date * 1000) / 1000 / 60 / 60)}{" "}
+                hours ago.
+              </HourDate>
+              <Comments>{post.comments}</Comments>
+              <Tags>{post.tags}</Tags>
+            </article>
+          ))}
+        </div>
       </div>
     );
   }
