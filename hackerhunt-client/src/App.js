@@ -26,13 +26,17 @@ class App extends Component {
     posts: [],
     searchText: ""
   };
+
   componentDidMount() {
-    console.log(this.props);
-    const fetchPage = this.fetchPages(0);
+    this.fetchPages();
   }
 
-  fetchPages = page => {
-    fetch(`http://localhost:8000/pages/${page}`)
+  fetchPages = () => {
+    const page =
+      this.props.location.pathname === "/"
+        ? "/pages/0"
+        : this.props.location.pathname;
+    fetch(`http://localhost:8000${page}`)
       .then(res => res.json())
       .then(res => this.setState({ posts: res.data }));
   };
@@ -49,10 +53,7 @@ class App extends Component {
     return (
       <div>
         <input onChange={this.onSearch} value={this.searchText} />
-        <Route
-          path="/page/:page"
-          render={props => <Posts {...props} tabPosts={tabPosts} />}
-        />
+        <Posts tabPosts={tabPosts} />
       </div>
     );
   }
