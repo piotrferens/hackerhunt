@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import glamorous from "glamorous";
+import { Link } from "react-router-dom";
 
 const PostsWrapper = glamorous.div({
   display: "flex",
@@ -47,13 +48,6 @@ const DivBottomButton = glamorous.div({
   margin: "auto"
 });
 
-const BottomButton = glamorous.button({
-  backgroundColor: "white",
-  border: "1px solid black",
-  textAlign: "center",
-  width: "100px"
-});
-
 const Description = glamorous.p({});
 
 const Author = glamorous.p({});
@@ -85,14 +79,17 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.fetchPages();
+    this.fetchPages(this.props.location.pathname);
   }
 
-  fetchPages = () => {
-    const page =
-      this.props.location.pathname === "/"
-        ? "/pages/0"
-        : this.props.location.pathname;
+  componentWillReceiveProps(nextProps) {
+    if (this.props.location.pathname !== nextProps.location.pathname) {
+      this.fetchPages(nextProps.location.pathname);
+    }
+  }
+
+  fetchPages = pathname => {
+    const page = pathname === "/" ? "/pages/0" : pathname;
     fetch(`http://localhost:8000${page}`)
       .then(res => res.json())
       .then(res => this.setState({ posts: res.data }));
@@ -117,7 +114,10 @@ class App extends Component {
         </Top>
         <MainDiv>
           <Menu>MENU</Menu>
-          <Posts tabPosts={filteredPosts} />
+          <Posts
+            pathname={this.props.location.pathname}
+            tabPosts={filteredPosts}
+          />
           <Commercial>COMMERCIAL</Commercial>
         </MainDiv>
       </div>
@@ -135,7 +135,9 @@ class Posts extends Component {
   };
 
   render() {
-    const { tabPosts } = this.props;
+    const { tabPosts, pathname } = this.props;
+    const array = pathname.split("/");
+    const nextPage = Number(array[array.length - 1]) + 1;
     return (
       <PostsWrapper>
         TODAY
@@ -163,7 +165,7 @@ class Posts extends Component {
           </ShowMore>
         ) : null}
         <DivBottomButton>
-          <BottomButton> PREVIOUS DAY </BottomButton>
+          <Link to={`/pages/${nextPage}`}> PREVIOUS DAY </Link>
         </DivBottomButton>
       </PostsWrapper>
     );
