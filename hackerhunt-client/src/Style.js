@@ -1,5 +1,11 @@
 import glamorous from "glamorous";
 
+export const Input = glamorous.input({
+  margin: "auto",
+  height: "25px",
+  flex: 5
+});
+
 export const PostsWrapper = glamorous.div({
   display: "flex",
   flexDirection: "column",
@@ -7,8 +13,9 @@ export const PostsWrapper = glamorous.div({
 });
 
 export const Post = glamorous.article({
-  margin: "auto",
-  width: 500
+  display: "flex",
+  width: 500,
+  borderBottom: "1px solid #b1a3a3"
 });
 
 export const MainDiv = glamorous.div({
@@ -16,7 +23,7 @@ export const MainDiv = glamorous.div({
   justifyContent: "center"
 });
 
-export const Title = glamorous.h2({
+export const Title = glamorous.a({
   fontSize: 20,
   textDecoration: "none",
   color: "black",
@@ -35,37 +42,52 @@ export const Commercial = glamorous.div({
 });
 
 export const Top = glamorous.div({
-  display: "flex"
+  display: "flex",
+  marginBottom: 50
 });
 
 export const Logo = glamorous.div({
   flex: 2
 });
 
-export const DivBottomButton = glamorous.div({
-  margin: "auto"
+export const DivBottomButton = glamorous.footer({
+  textAlign: "center",
+  margin: "40px 0 60px"
 });
 
 export const Description = glamorous.p({});
 
 export const Author = glamorous.p({});
 
-export const Votes = glamorous.p({});
+export const Votes = glamorous.p({
+  marginTop: 0
+});
 
 export const HourDate = glamorous.p({});
+
+export const Activity = glamorous.a({
+  textDecoration: "none",
+  width: 50
+});
 
 export const Comments = glamorous.p({});
 
 export const Tags = glamorous.p({});
 
-export const Input = glamorous.input({
-  margin: "auto",
-  height: "25px",
-  flex: 5
-});
-
 export const ShowMore = glamorous.strong({
-  margin: "auto",
+  display: "block",
   marginBottom: 15,
   textAlign: "center"
+});
+
+export const Header = glamorous.header({
+  display: "flex"
+});
+
+export const ActualDay = glamorous.h3({
+  marginBottom: 25
+});
+
+export const AllPosts = glamorous.div({
+  margin: 0
 });

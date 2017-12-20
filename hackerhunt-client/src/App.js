@@ -35,7 +35,7 @@ class App extends Component {
     );
 
     return (
-      <div>
+      <div style={{ maxWidth: 1080, margin: "auto" }}>
         <Top>
           <Logo>LOGO</Logo>
           <Input onChange={this.onSearch} value={this.searchText} />
