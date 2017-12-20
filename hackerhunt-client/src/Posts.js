@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import {
   PostsWrapper,
   Header,
@@ -10,12 +9,14 @@ import {
   Description,
   Author,
   Votes,
+  DateAuthorTags,
   HourDate,
   Activity,
   Comments,
   Tags,
   ShowMore,
-  DivBottomButton
+  DivBottomButton,
+  PreviousDay
 } from "./Style";
 
 class Posts extends Component {
@@ -53,15 +54,16 @@ class Posts extends Component {
                     {post.title}
                   </Title>
                   <Description>{post.desc}</Description>
-                  <Author>{post.author}</Author>
-
-                  <HourDate>
-                    {Math.round(
-                      (Date.now() - post.date * 1000) / 1000 / 60 / 60
-                    )}{" "}
-                    hours ago.
-                  </HourDate>
-                  <Tags>{post.tags}</Tags>
+                  <DateAuthorTags>
+                    <HourDate>
+                      {Math.round(
+                        (Date.now() - post.date * 1000) / 1000 / 60 / 60
+                      )}{" "}
+                      hours ago{" "}
+                    </HourDate>
+                    <Author>{post.author + " "}</Author>
+                    <Tags>{post.tags}</Tags>
+                  </DateAuthorTags>
                 </div>
               </Post>
             ))}
@@ -71,23 +73,12 @@ class Posts extends Component {
             </ShowMore>
           ) : null}
           <DivBottomButton>
-            <Link
-              style={{
-                textDecoration: "none",
-                color: "#2F2F2F",
-                display: "inline-block",
-                border: "1px solid #2F2F2F",
-                fontWeight: 500,
-                borderRadius: 2,
-                padding: "8px 34px",
-                textTransform: "uppercase",
-                fontSize: 14
-              }}
+            <PreviousDay
+              onClick={() => this.setState({ showingAll: false })}
               to={`/pages/${nextPage}`}
             >
-              {" "}
               PREVIOUS DAY{" "}
-            </Link>
+            </PreviousDay>
           </DivBottomButton>
         </AllPosts>
       </PostsWrapper>

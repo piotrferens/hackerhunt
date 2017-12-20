@@ -1,6 +1,20 @@
 import React, { Component } from "react";
 import Posts from "./Posts";
-import { Top, Logo, Input, MainDiv, Menu, Commercial } from "./Style";
+import {
+  Top,
+  Logo,
+  Input,
+  MainDiv,
+  Menu,
+  Commercial,
+  MenuDiv,
+  TopicName,
+  Navigation,
+  Topics,
+  Topic,
+  Icon,
+  NameTopic
+} from "./Style";
 
 class App extends Component {
   state = {
@@ -34,6 +48,51 @@ class App extends Component {
       post.title.toLowerCase().includes(this.state.searchText.toLowerCase())
     );
 
+    const menuTopics = [
+      {
+        icon: "🚀",
+        topic: "Development",
+        children: [
+          { icon: "⚙️", topic: "Devops" },
+          { icon: "🗄", topic: "Databases" },
+          { icon: "🔌", topic: "Apis" },
+          { icon: "🏛", topic: "Libraries" }
+        ]
+      },
+      {
+        icon: "🛠",
+        topic: "System",
+        children: [
+          { icon: "🛡", topic: "Security" },
+          { icon: "⛈", topic: "Cloud" },
+          { icon: "🍏", topic: "Aple" }
+        ]
+      },
+      {
+        icon: "🎛",
+        topic: "Tools",
+        children: [{ icon: "📋", topic: "Productivity" }]
+      },
+      { icon: "🎓", topic: "Data science" },
+      { icon: "🔗", topic: "Blockchain" },
+      { icon: "📱", topic: "Mobile" },
+      { icon: "✨", topic: "Awesone lists" },
+      { icon: "🤙", topic: "Social" },
+      { icon: "🔰", topic: "Visual" },
+      {
+        icon: "🍺",
+        topic: "Open source",
+        children: [
+          { icon: "©️", topic: "C" },
+          { icon: "💰", topic: "Javascrpit" },
+          { icon: "⌨️", topic: "Go" },
+          { icon: "♦️", topic: "Ruby" },
+          { icon: "🧥", topic: "Python" }
+        ]
+      },
+      { icon: "🗂", topic: "All topics" }
+    ];
+
     return (
       <div style={{ maxWidth: 1080, margin: "auto" }}>
         <Top>
@@ -43,7 +102,21 @@ class App extends Component {
           <div />
         </Top>
         <MainDiv>
-          <Menu>MENU</Menu>
+          <Menu>
+            <MenuDiv>
+              <TopicName>TOPICS</TopicName>
+              <Navigation>
+                {menuTopics.map(topic => (
+                  <Topics key={topic.topic}>
+                    <Topic>
+                      <Icon> {topic.icon} </Icon>
+                      <NameTopic>{topic.topic}</NameTopic>
+                    </Topic>
+                  </Topics>
+                ))}
+              </Navigation>
+            </MenuDiv>
+          </Menu>
           <Posts
             pathname={this.props.location.pathname}
             tabPosts={filteredPosts}
@@ -56,3 +129,7 @@ class App extends Component {
 }
 
 export default App;
+
+// <ul>
+// {menuTopics.map(topic => <li></li>)}
+// </ul>
