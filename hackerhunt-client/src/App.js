@@ -73,12 +73,12 @@ class App extends Component {
         topic: "Tools",
         children: [{ icon: "📋", topic: "Productivity" }]
       },
-      { icon: "🎓", topic: "Data science" },
-      { icon: "🔗", topic: "Blockchain" },
-      { icon: "📱", topic: "Mobile" },
-      { icon: "✨", topic: "Awesone lists" },
-      { icon: "🤙", topic: "Social" },
-      { icon: "🔰", topic: "Visual" },
+      { icon: "🎓", topic: "Data science", children: [] },
+      { icon: "🔗", topic: "Blockchain", children: [] },
+      { icon: "📱", topic: "Mobile", children: [] },
+      { icon: "✨", topic: "Awesone lists", children: [] },
+      { icon: "🤙", topic: "Social", children: [] },
+      { icon: "🔰", topic: "Visual", children: [] },
       {
         icon: "🍺",
         topic: "Open source",
@@ -90,7 +90,7 @@ class App extends Component {
           { icon: "🧥", topic: "Python" }
         ]
       },
-      { icon: "🗂", topic: "All topics" }
+      { icon: "🗂", topic: "All topics", children: [] }
     ];
 
     return (
@@ -107,11 +107,21 @@ class App extends Component {
               <TopicName>TOPICS</TopicName>
               <Navigation>
                 {menuTopics.map(topic => (
-                  <Topics key={topic.topic}>
+                  <Topics>
                     <Topic>
-                      <Icon> {topic.icon} </Icon>
+                      <Icon>{topic.icon}</Icon>
                       <NameTopic>{topic.topic}</NameTopic>
                     </Topic>
+                    <div key={topic.topic}>
+                      {topic.children.map(abc => (
+                        <Topics>
+                          <Topic>
+                            <Icon> {abc.icon} </Icon>
+                            <NameTopic>{abc.topic}</NameTopic>
+                          </Topic>
+                        </Topics>
+                      ))}
+                    </div>
                   </Topics>
                 ))}
               </Navigation>
@@ -129,7 +139,3 @@ class App extends Component {
 }
 
 export default App;
-
-// <ul>
-// {menuTopics.map(topic => <li></li>)}
-// </ul>
