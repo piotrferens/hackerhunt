@@ -126,7 +126,9 @@ export const TopicName = glamorous.h3({
 
 export const Navigation = glamorous.nav({});
 
-export const Topics = glamorous.div({});
+export const Topics = glamorous.div(props => ({
+  marginLeft: props.isChildren ? 20 : 0
+}));
 
 export const Topic = glamorous.a({
   display: "block",

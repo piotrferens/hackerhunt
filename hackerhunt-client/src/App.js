@@ -16,10 +16,56 @@ import {
   NameTopic
 } from "./Style";
 
+const menuTopics = [
+  {
+    icon: "🚀",
+    name: "Development",
+    children: [
+      { icon: "⚙️", name: "Devops" },
+      { icon: "🗄", name: "Databases" },
+      { icon: "🔌", name: "Apis" },
+      { icon: "🏛", name: "Libraries" }
+    ]
+  },
+  {
+    icon: "🛠",
+    name: "System",
+    children: [
+      { icon: "🛡", name: "Security" },
+      { icon: "⛈", name: "Cloud" },
+      { icon: "🍏", name: "Aple" }
+    ]
+  },
+  {
+    icon: "🎛",
+    name: "Tools",
+    children: [{ icon: "📋", name: "Productivity" }]
+  },
+  { icon: "🎓", name: "Data science", children: [] },
+  { icon: "🔗", name: "Blockchain", children: [] },
+  { icon: "📱", name: "Mobile", children: [] },
+  { icon: "✨", name: "Awesone lists", children: [] },
+  { icon: "🤙", name: "Social", children: [] },
+  { icon: "🔰", name: "Visual", children: [] },
+  {
+    icon: "🍺",
+    name: "Open source",
+    children: [
+      { icon: "©️", name: "C" },
+      { icon: "💰", name: "Javascrpit" },
+      { icon: "⌨️", name: "Go" },
+      { icon: "♦️", name: "Ruby" },
+      { icon: "🧥", name: "Python" }
+    ]
+  },
+  { icon: "🗂", name: "All topics", children: [] }
+];
+
 class App extends Component {
   state = {
     posts: [],
-    searchText: ""
+    searchText: "",
+    selectedTopic: ""
   };
 
   componentDidMount() {
@@ -43,55 +89,16 @@ class App extends Component {
     this.setState({ searchText: event.target.value });
   };
 
+  onClickTopic = name => {
+    this.setState({
+      selectedTopic: this.state.selectedTopic === name ? "" : name
+    });
+  };
+
   render() {
     const filteredPosts = this.state.posts.filter(post =>
       post.title.toLowerCase().includes(this.state.searchText.toLowerCase())
     );
-
-    const menuTopics = [
-      {
-        icon: "🚀",
-        topic: "Development",
-        children: [
-          { icon: "⚙️", topic: "Devops" },
-          { icon: "🗄", topic: "Databases" },
-          { icon: "🔌", topic: "Apis" },
-          { icon: "🏛", topic: "Libraries" }
-        ]
-      },
-      {
-        icon: "🛠",
-        topic: "System",
-        children: [
-          { icon: "🛡", topic: "Security" },
-          { icon: "⛈", topic: "Cloud" },
-          { icon: "🍏", topic: "Aple" }
-        ]
-      },
-      {
-        icon: "🎛",
-        topic: "Tools",
-        children: [{ icon: "📋", topic: "Productivity" }]
-      },
-      { icon: "🎓", topic: "Data science", children: [] },
-      { icon: "🔗", topic: "Blockchain", children: [] },
-      { icon: "📱", topic: "Mobile", children: [] },
-      { icon: "✨", topic: "Awesone lists", children: [] },
-      { icon: "🤙", topic: "Social", children: [] },
-      { icon: "🔰", topic: "Visual", children: [] },
-      {
-        icon: "🍺",
-        topic: "Open source",
-        children: [
-          { icon: "©️", topic: "C" },
-          { icon: "💰", topic: "Javascrpit" },
-          { icon: "⌨️", topic: "Go" },
-          { icon: "♦️", topic: "Ruby" },
-          { icon: "🧥", topic: "Python" }
-        ]
-      },
-      { icon: "🗂", topic: "All topics", children: [] }
-    ];
 
     return (
       <div style={{ maxWidth: 1080, margin: "auto" }}>
@@ -107,21 +114,20 @@ class App extends Component {
               <TopicName>TOPICS</TopicName>
               <Navigation>
                 {menuTopics.map(topic => (
-                  <Topics>
-                    <Topic>
+                  <Topics key={topic.name}>
+                    <Topic onClick={() => this.onClickTopic(topic.name)}>
                       <Icon>{topic.icon}</Icon>
-                      <NameTopic>{topic.topic}</NameTopic>
+                      <NameTopic>{topic.name}</NameTopic>
                     </Topic>
-                    <div key={topic.topic}>
-                      {topic.children.map(abc => (
-                        <Topics>
+                    {this.state.selectedTopic === topic.name &&
+                      topic.children.map(subtopic => (
+                        <Topics key={subtopic.name} isChildren={true}>
                           <Topic>
-                            <Icon> {abc.icon} </Icon>
-                            <NameTopic>{abc.topic}</NameTopic>
+                            <Icon> {subtopic.icon} </Icon>
+                            <NameTopic>{subtopic.name}</NameTopic>
                           </Topic>
                         </Topics>
                       ))}
-                    </div>
                   </Topics>
                 ))}
               </Navigation>
