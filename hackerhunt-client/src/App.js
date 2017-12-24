@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Posts from "./Posts";
+import menuTopics from "./Data";
 import {
   Top,
   Logo,
@@ -15,51 +16,6 @@ import {
   Icon,
   NameTopic
 } from "./Style";
-
-const menuTopics = [
-  {
-    icon: "🚀",
-    name: "Development",
-    children: [
-      { icon: "⚙️", name: "Devops" },
-      { icon: "🗄", name: "Databases" },
-      { icon: "🔌", name: "Apis" },
-      { icon: "🏛", name: "Libraries" }
-    ]
-  },
-  {
-    icon: "🛠",
-    name: "System",
-    children: [
-      { icon: "🛡", name: "Security" },
-      { icon: "⛈", name: "Cloud" },
-      { icon: "🍏", name: "Aple" }
-    ]
-  },
-  {
-    icon: "🎛",
-    name: "Tools",
-    children: [{ icon: "📋", name: "Productivity" }]
-  },
-  { icon: "🎓", name: "Data science", children: [] },
-  { icon: "🔗", name: "Blockchain", children: [] },
-  { icon: "📱", name: "Mobile", children: [] },
-  { icon: "✨", name: "Awesone lists", children: [] },
-  { icon: "🤙", name: "Social", children: [] },
-  { icon: "🔰", name: "Visual", children: [] },
-  {
-    icon: "🍺",
-    name: "Open source",
-    children: [
-      { icon: "©️", name: "C" },
-      { icon: "💰", name: "Javascrpit" },
-      { icon: "⌨️", name: "Go" },
-      { icon: "♦️", name: "Ruby" },
-      { icon: "🧥", name: "Python" }
-    ]
-  },
-  { icon: "🗂", name: "All topics", children: [] }
-];
 
 class App extends Component {
   state = {
@@ -114,15 +70,23 @@ class App extends Component {
               <TopicName>TOPICS</TopicName>
               <Navigation>
                 {menuTopics.map(topic => (
-                  <Topics key={topic.name}>
-                    <Topic onClick={() => this.onClickTopic(topic.name)}>
+                  <Topics
+                    key={topic.name}
+                    hasChildren={topic.children.length !== 0}
+                  >
+                    <Topic
+                      onClick={() => this.onClickTopic(topic.name)}
+                      to={`/topic/${topic.name.toLowerCase()}/trending`}
+                    >
                       <Icon>{topic.icon}</Icon>
                       <NameTopic>{topic.name}</NameTopic>
                     </Topic>
                     {this.state.selectedTopic === topic.name &&
                       topic.children.map(subtopic => (
                         <Topics key={subtopic.name} isChildren={true}>
-                          <Topic>
+                          <Topic
+                            to={`/topic/${subtopic.name.toLowerCase()}/trending`}
+                          >
                             <Icon> {subtopic.icon} </Icon>
                             <NameTopic>{subtopic.name}</NameTopic>
                           </Topic>

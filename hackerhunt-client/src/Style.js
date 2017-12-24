@@ -127,14 +127,16 @@ export const TopicName = glamorous.h3({
 export const Navigation = glamorous.nav({});
 
 export const Topics = glamorous.div(props => ({
-  marginLeft: props.isChildren ? 20 : 0
+  marginLeft: props.isChildren ? 20 : 0,
+  fontWeight: props.hasChildren ? "bold" : "normal"
 }));
 
-export const Topic = glamorous.a({
+export const Topic = glamorous(Link)({
   display: "block",
   cursor: "pointer",
   padding: "5px 0",
-  whiteSpace: "nowrap"
+  whiteSpace: "nowrap",
+  textDecoration: "none"
 });
 
 export const Icon = glamorous.span({});
